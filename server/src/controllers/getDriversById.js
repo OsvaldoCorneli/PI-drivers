@@ -10,7 +10,6 @@ const axios = require("axios")
 const {Driver} = require("../db")
 
 async function getDriversById(id){
-        console.log("id", id)
         let data1;
         if(id<509){
                 const {data} = await axios.get(`http://localhost:5000/drivers/${id}`)

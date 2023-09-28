@@ -1,7 +1,7 @@
 const { Driver } = require("../db");
 
 async function createDriver( name, image, dob, nationality, teams, description) {
-  try {
+  
     const createdDriver = await Driver.create({
       name,
       image,
@@ -28,10 +28,7 @@ async function createDriver( name, image, dob, nationality, teams, description) 
     } else {
       return { status: 404, message: "No fue creado" };
     }
-  } catch (error) {
-    console.error("Error al crear el conductor:", error);
-    return { status: 500, message: "Error en el servidor" };
-  } 
+  
 } 
 
 module.exports = createDriver;

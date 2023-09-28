@@ -2,7 +2,7 @@ const createDriver = require("../controllers/createDriver");
 
 async function createDriversHandler(req, res) {
   try {
-    const { id, name, image, dob, nationality, teams, description } = req.body;
+    const { name, image, dob, nationality, teams, description } = req.body;
 
     const datos = await createDriver(
       name,
@@ -14,10 +14,19 @@ async function createDriversHandler(req, res) {
     ); 
 
     if (datos.status === 200) {
-      res.status(200).send(datos);
+      const response = {
+        id: datos.driver.id,
+        name: datos.driver.name,
+        image: datos.driver.image,
+        dob: datos.driver.dob,
+        nationality: datos.driver.nationality,
+        description: datos.driver.description,
+      };
+      res.status(200).json(response);
     } else {
-      res.status(404).json({ message: datos.message }); // Cambié "message" a "datos.message"
+      res.status(404).json({ message: datos.message });
     }
+    
   } catch (error) {
     res.status(500).send({ error: error.message });
   }

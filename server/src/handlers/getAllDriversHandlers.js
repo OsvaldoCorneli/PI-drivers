@@ -6,6 +6,7 @@ const getAllDrivers = require("../controllers/getAllDrivers")
 async function getAllDriversHandlers(req, res) {
   try {
     const { name } = req.query;
+    console.log(name)
 
     let data = [];
 
