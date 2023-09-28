@@ -1,5 +1,8 @@
 const getAllDrivers = require("../controllers/getAllDrivers")
 
+
+
+
 async function getAllDriversHandlers(req, res) {
   try {
     const { name } = req.query;
@@ -12,8 +15,6 @@ async function getAllDriversHandlers(req, res) {
       data = await getAllDrivers();
     }
 
-    console.log(data)
-
     if (data.length > 0) {
       return res.status(200).json(data);
     } else {
@@ -24,7 +25,9 @@ async function getAllDriversHandlers(req, res) {
   }
 }
 
-module.exports = getAllDriversHandlers;
+
+
+
 
 
 

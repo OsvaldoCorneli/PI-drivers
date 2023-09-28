@@ -4,10 +4,9 @@ async function getByIdHandler(req, res){
 
 try {
     const {idDriver} = req.params
-
     const drivers = await getDriversById(idDriver);
     
-    if(!drivers){res.status(400).send("No hay conductor")}
+    if(!drivers){return res.status(400).json({message: error.message})}
 
     return res.status(200).json(drivers);
     

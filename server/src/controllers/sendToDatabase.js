@@ -8,7 +8,7 @@ const sendToDatabase = async (req, res) => {
         if(!data){return res.status(400).send("No hay conductores")}
          
         const filtrado = data.map((propiedad) => ({
-           id: propiedad.code,
+           id: propiedad.id,
             names: propiedad.name?.forename,
             lastname: propiedad.name?.surname,
             description: propiedad.description,
