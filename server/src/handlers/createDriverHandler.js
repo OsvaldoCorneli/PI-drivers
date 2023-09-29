@@ -20,6 +20,7 @@ async function createDriversHandler(req, res) {
         image: datos.driver.image,
         dob: datos.driver.dob,
         nationality: datos.driver.nationality,
+        teams: datos.driver.teams,
         description: datos.driver.description,
       };
       res.status(200).json(response);

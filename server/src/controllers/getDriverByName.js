@@ -35,6 +35,7 @@ async function getDriverByName(name){
         image: dbDriver.image,
         dob: dbDriver.dob,
         nationality: dbDriver.nationality,
+        teams: dbDriver.teams,
         description: dbDriver.description,
       }));
 

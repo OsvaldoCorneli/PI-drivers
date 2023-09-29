@@ -27,6 +27,7 @@ async function getAllDrivers() {
         image: dbDriver.image,
         dob: dbDriver.dob,
         nationality: dbDriver.nationality,
+        teams: dbDriver.teams,
         description: dbDriver.description,
       }));
     

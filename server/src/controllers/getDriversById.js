@@ -19,14 +19,14 @@ async function getDriversById(id){
                 data1 = data;
                 }
         if(!data1){throw Error("No hay driver con ese ID")}
-       const {code, name, nationality, image, description, dob, teams } = data1;
+       const {name, nationality, image, description, dob, teams } = data1;
        if(image.url === "" && image.imageby === ""){
         {
         image.url = "https://1000marcas.net/wp-content/uploads/2020/01/logo-F1.png",
         image.imageby = "Image by 1000 marcas"
         }
        } 
-       return {id, code, name, nationality, image, description, dob, teams }
+       return {id, name, image, dob ,nationality, teams, description, }
 
 
 

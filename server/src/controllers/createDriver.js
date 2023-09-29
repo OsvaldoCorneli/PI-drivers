@@ -21,6 +21,7 @@ async function createDriver( name, image, dob, nationality, teams, description) 
           image: createdDriver.image,
           dob: createdDriver.dob,
           nationality: createdDriver.nationality,
+          teams: createdDriver.teams,
           description: createdDriver.description,
         },
       };

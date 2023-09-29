@@ -1,22 +1,12 @@
 const getAllDrivers = require("../controllers/getAllDrivers")
 
-
-
-
 async function getAllDriversHandlers(req, res) {
   try {
-    const { name } = req.query;
-    console.log(name)
 
-    let data = [];
-
-    if (name !== undefined) {
-      data = await getAllDrivers(name);
-    } else {
       data = await getAllDrivers();
-    }
+    
 
-    if (data.length > 0) {
+    if (data) {
       return res.status(200).json(data);
     } else {
       return res.status(404).send("No hay conductores");

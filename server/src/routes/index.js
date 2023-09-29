@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const getAllDriversHandlers = require("../handlers/getAllDriversHandlers")
-const sendToDatabase = require("../controllers/sendToDatabase");
 const getByIdHandler = require("../handlers/getByIdHandler");
 const createDriversHandler = require("../handlers/createDriverHandler");
 const getNameHamdler = require("../handlers/getByNameHandler");
