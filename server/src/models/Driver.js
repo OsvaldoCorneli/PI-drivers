@@ -1,18 +1,17 @@
 const { DataTypes } = require('sequelize');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
-let count = 509;
+
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('Driver', {
     id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
-      
-      defaultValue: () => {
-        return count++;}
-    },
+      primaryKey: true,
+      unique: true,
+    },    
     name: {
       type: DataTypes.JSONB, // Usamos JSONB para datos JSON anidados
       allowNull: false,
@@ -35,17 +34,13 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     dob:{
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     description:{
       type: DataTypes.STRING,
       allowNull: false,
     },
-    teams:{
-      type: DataTypes.STRING,
-      allowNull: false,
-    }
-
+   
   }, { timestamps: false });
 };

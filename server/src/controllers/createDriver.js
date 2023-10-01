@@ -1,15 +1,24 @@
-const { Driver } = require("../db");
+const { Driver, Teams } = require("../db");
 
 async function createDriver( name, image, dob, nationality, teams, description) {
   
-    const createdDriver = await Driver.create({
+    const [createdDriver, created] = await Driver.findOrCreate({where: {
       name,
       image,
       dob,
       nationality,
-      teams,
-      description,
-    });
+      description, 
+    }});
+
+    if (created) {
+        const separateTeams =  teams.split(",");
+
+      for (const teamName of separateTeams) {
+    
+        const [team] = await Teams.findOrCreate({ where: { name: teamName } });
+    
+        await createdDriver.addTeam(team);
+      }
   
     if (createdDriver) {
       const response = {
@@ -31,6 +40,7 @@ async function createDriver( name, image, dob, nationality, teams, description) 
     }
   
 } 
-
+ else{ throw new Error( "El drivers con esos datos ya existe")}
+}
 module.exports = createDriver;
  
