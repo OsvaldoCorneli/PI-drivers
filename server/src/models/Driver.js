@@ -26,8 +26,14 @@ module.exports = (sequelize) => {
       },
   },
     image: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
       allowNull: false,
+      get(){
+        const url = this.getDataValue('image')?.url || '';
+        return {
+          url: url
+        }
+      }
     },
     nationality:{
       type: DataTypes.STRING,

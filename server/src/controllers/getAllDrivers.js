@@ -1,5 +1,5 @@
 const axios = require("axios")
-const {Driver} = require("../db");
+const {Driver, Teams} = require("../db");
 
 
 async function getAllDrivers() {
@@ -20,8 +20,21 @@ async function getAllDrivers() {
           data[i].image.imageby = "Image by 1000 marcas";
         }
       }
-  
-      const dbDrivers = dataDB.map((dbDriver) => ({
+
+    
+      
+      const dbDrivers = await Promise.all(dataDB.map(async (dbDriver) => ({
+        id: dbDriver.id,
+        name: dbDriver.name,
+        image: dbDriver.image,
+        dob: dbDriver.dob,
+        nationality: dbDriver.nationality,
+        teams: await funcionparaencontrarteams(dbDriver.id),
+        description: dbDriver.description,
+      })));
+
+
+      const dbDriversApi = data.map((dbDriver) => ({
         id: dbDriver.id,
         name: dbDriver.name,
         image: dbDriver.image,
@@ -30,10 +43,31 @@ async function getAllDrivers() {
         teams: dbDriver.teams,
         description: dbDriver.description,
       }));
+
     
-  return data.concat(dbDrivers);
+  return dbDriversApi.concat(dbDrivers);
 }
 
+async function funcionparaencontrarteams(driverId) {
+  try {
+    // Realizar la consulta o lógica necesaria para encontrar los equipos
+    const driver = await Driver.findByPk(driverId, {
+      include: {
+        model: Teams,
+        through: 'driver_team',
+      },
+    });
 
+    if (driver && driver.Teams) {
+      return driver.Teams.map(team => team.name).join(",");
+    } else {
+      console.error('No se encontraron equipos para el conductor con ID:', driverId);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error al buscar equipos:', error);
+    return [];
+  }
+}
 
 module.exports = getAllDrivers;

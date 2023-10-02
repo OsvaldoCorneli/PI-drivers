@@ -5,7 +5,7 @@ async function teamsHandler(req, res){
 
     try {
       const count = await Teams.count();
-      console.log(count)
+    
       if(count === 0){
         const teams = await teamsControllers();
         
