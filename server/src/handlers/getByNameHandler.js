@@ -12,7 +12,7 @@ async function getNameHamdler(req, res) {
       if (data.length > 0) {
         return res.status(200).json(data);
       } else {
-        return res.status(404).send("No hay conductores con ese nombre");
+        return res.status(200).json("vacio");
       }
     } catch (error) {
       return res.status(500).json({ error: error.message });

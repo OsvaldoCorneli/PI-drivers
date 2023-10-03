@@ -1,0 +1,15 @@
+.ordenar {
+    width: 100%;
+    max-width: 75vw;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    grid-gap: 15px;
+  }
+  
+  @media (min-width: 1024px) {
+    
+    .ordenar {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }

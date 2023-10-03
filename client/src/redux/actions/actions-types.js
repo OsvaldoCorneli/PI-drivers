@@ -1,0 +1,3 @@
+export const GET_DRIVERS = "GET_DRIVERS";
+export const BUSCAR_DRIVERS = "BUSCAR_DRIVERS";
+export const DRIVER_STATE = "MANEJAR_RENDERIZADO";

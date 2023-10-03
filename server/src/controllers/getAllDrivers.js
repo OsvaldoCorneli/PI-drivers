@@ -23,16 +23,32 @@ async function getAllDrivers() {
 
     
       
-      const dbDrivers = await Promise.all(dataDB.map(async (dbDriver) => ({
-        id: dbDriver.id,
-        name: dbDriver.name,
-        image: dbDriver.image,
-        dob: dbDriver.dob,
-        nationality: dbDriver.nationality,
-        teams: await funcionparaencontrarteams(dbDriver.id),
-        description: dbDriver.description,
-      })));
+      // const dbDrivers = await Promise.all(dataDB.map(async (dbDriver) => ({
+      //   id: dbDriver.id,
+      //   name: dbDriver.name,
+      //   image: dbDriver.image,
+      //   dob: dbDriver.dob,
+      //   nationality: dbDriver.nationality,
+      //   teams: await funcionparaencontrarteams(dbDriver.id),
+      //   description: dbDriver.description,
+      // })));
 
+
+      let dbDrivers = [];
+
+for (const dbDriver of dataDB) {
+  const teams = await funcionparaencontrarteams(dbDriver.id);
+
+  dbDrivers.push({
+    id: dbDriver.id,
+    name: dbDriver.name,
+    image: dbDriver.image,
+    dob: dbDriver.dob,
+    nationality: dbDriver.nationality,
+    teams: teams,
+    description: dbDriver.description,
+  });
+}
 
       const dbDriversApi = data.map((dbDriver) => ({
         id: dbDriver.id,
