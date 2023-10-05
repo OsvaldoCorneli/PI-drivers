@@ -1,17 +1,32 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDrivers , driverState} from "../../redux/actions/actions";
+import { getDrivers , driverState, loadTeams} from "../../redux/actions/actions";
 import Card from '../../components/Card/Card';
 import Pagination from '../../helpers/paginado'
 
 import "./home.css"
 
 function Home() {
-
+  //<ESTADOS>
+  
   const dispatch = useDispatch();
-  const drivers1 = useSelector(state => state.copyDrivers) 
+  const drivers1 = useSelector(state => state?.allDrivers) 
   const driversByName = useSelector(state => state.driversByName) 
   const drivers = useSelector(state => state.drivers)
+  const teams = useSelector(state => state.teams)
+  
+  //</ESTADOS>
+
+  useEffect(() => {
+    
+    if(teams.length === 0){
+     dispatch(loadTeams())
+    }
+    if(drivers !== "vacio"){ 
+      dispatch(getDrivers())}
+
+  }, []);
+  
   // <Paginado>
   const driversPerPage = 9;
   const [currentPage, setCurrentPage] = useState(0);
@@ -20,13 +35,8 @@ function Home() {
   const [loading, setLoading] = useState(true) 
   
   useEffect(() => {
-    if(drivers !== "vacio"){
-    dispatch(getDrivers())}
-  }, [dispatch]);
-  
-useEffect(() => {
 
- if(driversByName.length !== 0){
+  if(driversByName.length !== 0){
    dispatch(driverState(driversByName))
    setCurrentPage(0);
    }
@@ -37,6 +47,7 @@ useEffect(() => {
   setCurrentPage(0)
   }else{setLoading(true)}
  }
+
  }, [drivers1, driversByName]);
 
   const drivesPaginado = drivers.slice(startIndex, endIndex);
@@ -52,7 +63,6 @@ useEffect(() => {
       setCurrentPage(currentPage - 1);
     }
   };
-  
 
    // </Paginado>
 
@@ -62,16 +72,14 @@ useEffect(() => {
     return (
       <div>
         <h1>DRIVERS HOME</h1>
-    {loading ? <h2>"LOADING"</h2>: drivers.length !== 0 && drivers !== "vacio" ? (
+    {loading ? <h2>"LOADING"</h2> : drivers === "vacio" ? <h2>NO HAY COINCIDENCIAS</h2> : drivers.length !== 0? (
           <Pagination
             currentPage={currentPage}
             totalPages={Math.ceil(drivers.length / driversPerPage)}
             onPrev={prevHandler}
             onNext={nextHandler}
           />
-        ) : (
-          <h2>No hay coincidencias</h2>
-        )}
+        ):""}
   
         <div className='ordenar'>
           {drivers != "vacio" ? drivesPaginado.map((drive) => (

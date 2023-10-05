@@ -11,14 +11,15 @@ async function getNameHamdler(req, res) {
   
       if (data.length > 0) {
         return res.status(200).json(data);
-      } else {
+      } else if (data.length === 0 ) {
         return res.status(200).json("vacio");
       }
+       res.status(400).send(data.error);
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
   }
-
+ 
   module.exports = getNameHamdler;
   
   

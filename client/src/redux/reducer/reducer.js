@@ -1,11 +1,10 @@
-import { BUSCAR_DRIVERS, GET_DRIVERS, DRIVER_STATE } from "../actions/actions-types";
+import { BUSCAR_DRIVERS, GET_DRIVERS, DRIVER_STATE, LOADTEAMS } from "../actions/actions-types";
 
 const initialState = {
     drivers: [],
-    copyDrivers: [],
-    driversByName: []
-    
-   
+    allDrivers: [],
+    driversByName: [],
+    teams: []
    }
 
 const rootReducer = (state=initialState, action)=>{
@@ -14,7 +13,7 @@ const rootReducer = (state=initialState, action)=>{
    
       case GET_DRIVERS:      
         return { ...state,
-            copyDrivers: payload 
+            allDrivers: payload 
            };
            
       case BUSCAR_DRIVERS:      
@@ -24,13 +23,18 @@ const rootReducer = (state=initialState, action)=>{
               };
       
        case DRIVER_STATE: 
-       const response = payload.length === 0? [] : payload
+       const response = payload.length !== 0 ? payload : []
        return { 
             ...state,
             drivers: response
                  };
-      
-     
+       
+       case LOADTEAMS: 
+       return { 
+            ...state,
+            teams: payload
+                 };
+         
       default:
           return{
               ...state

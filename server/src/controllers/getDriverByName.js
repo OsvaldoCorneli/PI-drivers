@@ -3,38 +3,25 @@ const axios = require("axios");
 const { Op } = require("sequelize");
 
 async function getDriverByName(name) {
-  let driversfiltered = [];
   const varName = deleteAccent(name.toLowerCase());
+  let driversfiltered = [];
 
+  // Obtener datos de la API externa
   const { data } = await axios.get("http://localhost:5000/drivers");
 
   if (data) {
-    for (let i = 0; i < data.length; i++) {
-      const nameLowerCase = data[i].name.forename.toLowerCase();
-      const lastnameLowerCase = data[i].name.surname.toLowerCase();
-      const namesinacento = deleteAccent(nameLowerCase);
-      const lastsinacento = deleteAccent(lastnameLowerCase);
+    driversfiltered = data.filter((driver) => {
+      const fullName = `${deleteAccent(driver.name.forename.toLowerCase())} ${deleteAccent(driver.name.surname.toLowerCase())}`;
+      return fullName.includes(varName);
+    });
+  }
 
-      if (namesinacento.startsWith(varName)) {
-        if (!driversfiltered.some((driver) => driver.id === data[i].id)) {
-          driversfiltered.push(data[i]);
-        }
-      }
-
-      if (lastsinacento.startsWith(varName)) {
-        if (!driversfiltered.some((driver) => driver.id === data[i].id)) {
-          driversfiltered.push(data[i]);
-        }
-      }
-      }
-    }
-  
-
+  // Obtener datos de la base de datos
   const dbData = await Driver.findAll({
     where: {
       name: {
         forename: {
-          [Op.iLike]: `${varName}%`, // Busca nombres que comiencen con la letra especificada
+          [Op.iLike]: `${varName}%`,
         },
       },
     },
@@ -50,14 +37,14 @@ async function getDriverByName(name) {
     description: dbDriver.description,
   }));
 
-  const combinedData = driversfiltered.concat(dbDrivers).slice(0, 15);
+  // Combinar y limitar la cantidad de resultados
+  const combinedData = [...driversfiltered, ...dbDrivers].slice(0, 15);
+
   return combinedData;
 }
 
 function deleteAccent(text) {
-  return text
-    .normalize("NFD") // Normaliza la cadena con la forma de Unicode (NFD)
-    .replace(/[\u0300-\u036f]/g, ""); // Elimina los caracteres diacríticos (acentos)
+  return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
 module.exports = getDriverByName;
