@@ -1,29 +1,37 @@
      
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { driverState, getDriverByName} from '../../redux/actions/actions';
 
 
-function SearchBar() { 
+function SearchBar({searchQueryLocal, setSearchQueryLocal}) { 
   //<Estados> 
   const dispatch = useDispatch();
-  const [searchQuery, setSearchQuery] = useState('');
-  const drivers1 = useSelector(state => state?.allDrivers) 
+  
+  const alldriver = useSelector(state => state?.allDrivers) 
+  const driver = useSelector(state => state?.drivers)
+  let query = searchQueryLocal; 
   //<Estados/>
 
+  
   useEffect(()=>{
-     
-    if(searchQuery?.trim() === ''){
-      dispatch(driverState(drivers1))
+    if(driver.length > 15){
+    setSearchQueryLocal('')}
+  },[driver])
+  
+  
+  useEffect(()=>{
+    if(searchQueryLocal === ''){
+      dispatch(driverState(alldriver))
     }
     else{
-      dispatch(getDriverByName(searchQuery));
+      dispatch(getDriverByName(searchQueryLocal));
     }
-  },[searchQuery])
+  },[searchQueryLocal, alldriver])
   
   //<Funciones>
   const onSearch = (event) => {
-   setSearchQuery(event.target.value);
+   setSearchQueryLocal(event.target.value);
   };
 
   //<Funciones/>
@@ -33,7 +41,7 @@ function SearchBar() {
       <input
         type='search'
         placeholder='Search Drivers'
-        value={searchQuery}
+        value={searchQueryLocal}
         onChange={onSearch}
       />
     </div>

@@ -1,30 +1,26 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getDrivers , driverState, loadTeams} from "../../redux/actions/actions";
+import { useDispatch, useSelector} from 'react-redux';
+import { getDrivers , driverState, loadTeams, order, filterTeam} from "../../redux/actions/actions";
 import Card from '../../components/Card/Card';
 import Pagination from '../../helpers/paginado'
 
 import "./home.css"
+import SearchBar from '../../components/SearchBar/SearchBar';
 
 function Home() {
   //<ESTADOS>
-  
-  const dispatch = useDispatch();
-  const drivers1 = useSelector(state => state?.allDrivers) 
+  const allDrivers = useSelector(state => state?.allDrivers) 
   const driversByName = useSelector(state => state.driversByName) 
-  const drivers = useSelector(state => state.drivers)
-  const teams = useSelector(state => state.teams)
-  
+  const driversRender = useSelector(state => state.drivers)
+  const teams = useSelector(state => state?.teams)
+  const dispatch = useDispatch();
+  const [searchQueryLocal, setSearchQueryLocal] = useState('');
   //</ESTADOS>
 
   useEffect(() => {
-    
-    if(teams.length === 0){
-     dispatch(loadTeams())
-    }
-    if(drivers !== "vacio"){ 
-      dispatch(getDrivers())}
-
+  dispatch(loadTeams())
+  dispatch(getDrivers())
   }, []);
   
   // <Paginado>
@@ -33,6 +29,7 @@ function Home() {
   const startIndex = currentPage * driversPerPage;
   const endIndex = startIndex + driversPerPage;
   const [loading, setLoading] = useState(true) 
+
   
   useEffect(() => {
 
@@ -41,48 +38,89 @@ function Home() {
    setCurrentPage(0);
    }
  else{
-  if(drivers){
+  if(driversRender){
   setLoading(false)
-  dispatch(driverState(drivers1))
+  dispatch(driverState(allDrivers))
   setCurrentPage(0)
+
   }else{setLoading(true)}
  }
 
- }, [drivers1, driversByName]);
+ }, [allDrivers, driversByName]);
 
-  const drivesPaginado = drivers.slice(startIndex, endIndex);
+  const drivesPaginado = driversRender.slice(startIndex, endIndex);
 
   const nextHandler = () => {
-    if (endIndex < drivers.length) {
+    if (endIndex < driversRender.length) {
       setCurrentPage(currentPage + 1);
+      window.scrollTo(0,0);
     }
   };
 
   const prevHandler = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
+      window.scrollTo(0,0);
     }
   };
 
    // </Paginado>
+  //<Ordenamiento>
+  const [aux, setAux] = useState(false)
+
+  const handleOrder = (event) => {
+     dispatch(order(event.target.value))
+     setCurrentPage(0)
+     if(aux){
+      setAux(false)
+    }else{setAux(true)}
+  }
+
+  const handleFilter = (event) =>{
+    dispatch(filterTeam(event.target.value))
+  
+    }
+
+  //<Ordenamiento/>
 
 
- 
-   
-    return (
-      <div>
+  
+  
+  
+  return (
+    <div>
+
         <h1>DRIVERS HOME</h1>
-    {loading ? <h2>"LOADING"</h2> : drivers === "vacio" ? <h2>NO HAY COINCIDENCIAS</h2> : drivers.length !== 0? (
+       <SearchBar searchQueryLocal={searchQueryLocal} setSearchQueryLocal={setSearchQueryLocal}/>
+    {loading ? <h2>"LOADING"</h2> : driversRender === "vacio" ? <h2>NO HAY COINCIDENCIAS</h2> : driversRender.length !== 0? (
           <Pagination
             currentPage={currentPage}
-            totalPages={Math.ceil(drivers.length / driversPerPage)}
+            totalPages={Math.ceil(driversRender.length / driversPerPage)}
             onPrev={prevHandler}
             onNext={nextHandler}
           />
         ):""}
+
+
+<select name="filter" style={{ margin: "auto", display: "block" }} onChange={handleFilter} disabled={searchQueryLocal !== ""}>
+  <option value="reset">Reset</option>
+  {teams.map(team => (
+    <option value={team.name} key={team.id}>
+      {team.name}
+    </option>
+  ))}
+</select>
+
+<select name="ordenar" onChange={handleOrder} disabled={searchQueryLocal !== ""}>
+   <option value="reset">Reset</option>
+  <option value="ascendente">A-Z</option>
+  <option value="descendente">Z-A</option>
+  <option value="nacimientoa">Nacimiento ascendente</option>
+  <option value="nacimientod">Nacimiento descendente</option>
+</select>
   
         <div className='ordenar'>
-          {drivers != "vacio" ? drivesPaginado.map((drive) => (
+          {driversRender != "vacio" ? drivesPaginado.map((drive) => (
             <Card
               key={drive.id}
               id={drive.id}
@@ -93,10 +131,10 @@ function Home() {
           )):""}
         </div>
   
-        {drivers.length !== 0 && drivers !== "vacio" ? (
+        {driversRender.length !== 0 && driversRender !== "vacio" ? (
           <Pagination
             currentPage={currentPage}
-            totalPages={Math.ceil(drivers.length / driversPerPage)}
+            totalPages={Math.ceil(driversRender.length / driversPerPage)}
             onPrev={prevHandler}
             onNext={nextHandler}
           />

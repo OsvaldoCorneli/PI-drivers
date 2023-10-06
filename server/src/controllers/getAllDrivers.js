@@ -74,4 +74,4 @@ async function funcionparaencontrarteams(driverId) {
   }
 }
 
-module.exports = getAllDrivers;
+module.exports = {getAllDrivers,funcionparaencontrarteams};

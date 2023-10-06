@@ -13,13 +13,6 @@ async function createDriversHandler(req, res) {
       description
     ); 
 
-
-
-
-
-
-    
-
     if (datos.status === 200) {
       const response = {
         id: datos.driver.id,

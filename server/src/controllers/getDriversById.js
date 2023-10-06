@@ -1,11 +1,3 @@
-// ID.
-// Nombre.
-// Apellido.
-// Nacionalidad.
-// Imagen.
-// Descripción.
-// Fecha de Nacimiento.
-// Escuderías
 const axios = require("axios")
 const {Driver} = require("../db")
 
