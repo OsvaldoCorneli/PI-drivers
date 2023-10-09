@@ -7,6 +7,7 @@ import {loadTeams} from './redux/actions/actions.js'
 import Detail from './views/Detail/Detail';
 import Nav from './components/Nav/Nav';
 import { useState } from 'react';
+import Form from './views/Form/Form';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home setSearchQueryLocal={setSearchQueryLocal} searchQueryLocal={searchQueryLocal}  currentPage={currentPage} setCurrentPage={setCurrentPage} />} />
         <Route path = {`/detail/:id`} element = {<Detail  currentPage={currentPage} setCurrentPage={setCurrentPage}/>}/>
+        <Route path='/create' element={<Form/>}/>
       </Routes>
     </>
   );
