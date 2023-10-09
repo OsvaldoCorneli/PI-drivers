@@ -2,13 +2,17 @@ import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import LandingPage from './views/landingpage/LandingPage';
 import Home from './views/home/Home';
-import SearchBar from './components/SearchBar/SearchBar';
-import { useSelector, useDispatch} from 'react-redux';
+import { useDispatch} from 'react-redux';
 import {loadTeams} from './redux/actions/actions.js'
+import Detail from './views/Detail/Detail';
+import Nav from './components/Nav/Nav';
+import { useState } from 'react';
+
 function App() {
 
   const location = useLocation();
-  
+  const [currentPage, setCurrentPage] = useState(0);
+  const [searchQueryLocal, setSearchQueryLocal] = useState("");
 
   
   const dispatch = useDispatch();
@@ -16,15 +20,15 @@ function App() {
     dispatch(loadTeams());
   }, []);
   
-  
 
 
   return (
     <>
-     
+       {location.pathname !== "/" ? <Nav setSearchQueryLocal={setSearchQueryLocal} searchQueryLocal={searchQueryLocal} currentPage={currentPage} setCurrentPage={setCurrentPage}/>:null}
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<Home/>} />
+        <Route path="/home" element={<Home setSearchQueryLocal={setSearchQueryLocal} searchQueryLocal={searchQueryLocal}  currentPage={currentPage} setCurrentPage={setCurrentPage} />} />
+        <Route path = {`/detail/:id`} element = {<Detail  currentPage={currentPage} setCurrentPage={setCurrentPage}/>}/>
       </Routes>
     </>
   );

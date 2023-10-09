@@ -5,6 +5,8 @@ import {
   LOADTEAMS,
   ORDER,
   FILTERTEAM,
+  FILTERAPIDB,
+  DETAIL,
 } from "../actions/actions-types";
 
 const initialState = {
@@ -13,15 +15,18 @@ const initialState = {
   driversByName: [],
   teams: [],
   copyDrivers: [],
+  detailsId: [],
 };
 
 const rootReducer = (state = initialState, action) => {
   const { type, payload } = action;
+  const copiaDriver = [...state.allDrivers];
   switch (type) {
     case GET_DRIVERS:
       return { ...state, allDrivers: payload };
 
     case BUSCAR_DRIVERS:
+      payload.length === 0 ? [] : payload
       return {
         ...state,
         driversByName: payload,
@@ -41,12 +46,11 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case ORDER:
-      console.log(payload);
       return {
         ...state,
         drivers:
           payload === "reset"
-            ? [...state.drivers].sort((a,b)=> a.id - b.id)
+            ? [...state.drivers].sort((a, b) => a.id - b.id)
             : payload === "ascendente"
             ? [...state.drivers].sort((a, b) =>
                 a.name.forename.localeCompare(b.name.forename)
@@ -62,26 +66,50 @@ const rootReducer = (state = initialState, action) => {
             : state.drivers,
       };
 
-      case FILTERTEAM:
-        const copiaDriver = [...state.allDrivers];
-        console.log("filter", payload);
-        return {
-          ...state,
-          copyDrivers: [...state.drivers],
-          drivers: payload === "reset" ? [...state.allDrivers] : [...copiaDriver.filter((driver) => {
-            return driver.teams && driver.teams.split(",").map(team => team.trim()).includes(payload);
-          })],
-        };
-        
-        
+    case FILTERTEAM:
+      return {
+        ...state,
+        copyDrivers: [...state.drivers],
+        drivers:
+          payload === "reset"
+            ? [...state.allDrivers]
+            : [
+                ...copiaDriver.filter((driver) => {
+                  return (
+                    driver.teams &&
+                    driver.teams
+                      .split(",")
+                      .map((team) => team.trim())
+                      .includes(payload)
+                  );
+                }),
+              ],
+      };
+
+    case FILTERAPIDB:
+      return {
+        ...state,
+        drivers:
+          payload === "reset"
+            ? [...state.allDrivers]
+            : payload === "api"
+            ? [...copiaDriver.filter((driver) => typeof driver.id === "number")]
+            : payload === "db"
+            ? [...copiaDriver.filter((driver) => typeof driver.id === "string")]
+            : "",
+      };
+
+    case DETAIL:
+      return {
+        ...state,
+        detailsId: payload,
+      };
+
     default:
       return {
         ...state,
       };
   }
-
-
-
 };
 
 export default rootReducer;

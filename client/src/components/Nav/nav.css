@@ -1,0 +1,22 @@
+.navbar {
+    background-color: rgb(150, 14, 14);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    margin-right: 10px;
+    transition: color 0.3s ease-in-out; 
+  }
+  
+ 
+  .nav-link:hover {
+    color: black;
+  }
+  

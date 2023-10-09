@@ -1,0 +1,14 @@
+p{
+    margin: 0;
+}
+
+.filters-contener {
+    margin: 0;
+    padding: 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+  }
+
+  

@@ -4,3 +4,5 @@ export const DRIVER_STATE = "DRIVER_STATE";
 export const LOADTEAMS = "LOADTEAMS";
 export const ORDER = "ORDER";
 export const FILTERTEAM = "FILTERTEAM";
+export const FILTERAPIDB = "FILTERAPIDB";
+export const DETAIL = "DETAIL"

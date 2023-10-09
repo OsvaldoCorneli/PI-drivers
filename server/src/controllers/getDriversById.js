@@ -1,12 +1,15 @@
 const axios = require("axios")
-const {Driver} = require("../db")
+const {Driver} = require("../db");
+const { UUID } = require("sequelize");
+
 
 async function getDriversById(id){
         let data1;
-        if(id === Number){
+
+        if(id !== UUID ){
                 const {data} = await axios.get(`http://localhost:5000/drivers/${id}`)
                 data1 = data
-                }else{
+                }else if(id === UUID){
                 const data = await Driver.findOne({where:{ id }})
                 data1 = data;
                 }

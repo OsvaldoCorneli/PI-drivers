@@ -1,11 +1,9 @@
-
-import React from 'react';
+import React from "react";
+import "./pagination.css"
 
 const Pagination = ({ currentPage, totalPages, onNext, onPrev }) => {
-  
- 
   return (
-    <div>
+    <div className="pagination-container">
       <button onClick={onPrev} disabled={currentPage === 0}>
         Prev
       </button>

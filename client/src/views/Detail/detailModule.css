@@ -1,0 +1,43 @@
+/* detailModule.css */
+
+.details-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #111; /* Cambié el fondo a un tono oscuro */
+}
+
+.details-content {
+  color: white;
+  max-width: 800px; /* Limita el ancho del contenido para una mejor legibilidad */
+  margin: 20px; /* Añadí márgenes al contenido */
+}
+
+.name {
+  font-size: 2rem; /* Hice el nombre un poco más grande */
+  font-weight: bold;
+  margin-bottom: 10px; /* Añadí un margen inferior al nombre */
+}
+
+.details-content img {
+  width: 100%;
+  max-height: 400px; /* Limita la altura máxima de la imagen */
+  object-fit: cover; /* Ajusta la imagen manteniendo las proporciones */
+  border-radius: 5px;
+  margin-bottom: 20px; /* Añadí un margen inferior a la imagen */
+}
+
+.details-container button {
+  background-color: #fff;
+  color: #111; /* Cambié el color del texto a oscuro para mejor contraste */
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 5px; /* Añadí bordes redondeados al botón */
+}
+
+.details-container button:hover {
+  background-color: #ddd; /* Cambié el color de fondo al pasar el ratón por encima */
+}

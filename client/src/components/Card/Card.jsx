@@ -8,7 +8,7 @@ export default function Card(props){
         <div key={id} className="container" >
         
           <h2 className="title">{name.forename} {name.surname}</h2>
-          <h3 className="teams">{teams}</h3>
+          {teams && teams.length < 40 ? <h3 className="teams">{teams}</h3> : <h3 className="teams1">{teams}</h3>}
         <img  src={image.url} alt={image.imageby} className="image"/>
         
       </div>

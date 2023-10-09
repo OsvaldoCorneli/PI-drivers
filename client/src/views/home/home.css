@@ -1,4 +1,5 @@
 .ordenar {
+  
     width: 100%;
     max-width: 75vw;
     margin: 0 auto;
@@ -13,3 +14,23 @@
       grid-template-columns: repeat(3, 1fr);
     }
   }
+
+  .body-background {
+    background-image: url('https://img3.wallspic.com/crops/6/4/1/0/80146/80146-rueda-negro-dia-fila-estructura-3840x2160.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .selects-contener {
+    margin: 0;
+    padding: 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+  }
+

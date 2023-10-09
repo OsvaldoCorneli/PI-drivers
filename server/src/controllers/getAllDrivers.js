@@ -1,15 +1,15 @@
 const axios = require("axios")
 const {Driver, Teams} = require("../db");
-
+// const fotos = require('./fotos.json')
 
 async function getAllDrivers() {
 
- 
+  
   let {data} = await axios.get("http://localhost:5000/drivers")
   let dataDB = await Driver.findAll()
   
  ;
-  if (!data && !dataDB) {
+  if (!data && !dataDB) { 
       throw new Error("No hay conductores");
   }
   
@@ -20,7 +20,7 @@ async function getAllDrivers() {
           data[i].image.imageby = "Image by 1000 marcas";
         }
       }
-
+     
 
       let dbDrivers = [];
 
@@ -30,7 +30,7 @@ for (const dbDriver of dataDB) {
   dbDrivers.push({
     id: dbDriver.id,
     name: dbDriver.name,
-    image: dbDriver.image,
+    image: dbDriver.image, 
     dob: dbDriver.dob,
     nationality: dbDriver.nationality,
     teams: teams,

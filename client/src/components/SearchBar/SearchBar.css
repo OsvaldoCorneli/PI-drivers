@@ -1,0 +1,18 @@
+/* SearchBar.css */
+
+/* Estilos para el contenedor del SearchBar */
+.search-bar-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Estilos para el input de búsqueda */
+  .search-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 14px;
+  }
+  
+ 
