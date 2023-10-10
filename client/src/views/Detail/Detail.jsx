@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { idDetail } from "../../redux/actions/actions";
 import { useParams } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import { getDriverByName } from "../../redux/actions/actions";
 import "./detailModule.css";
 
 export default function Detail({setCurrentPage}) {
@@ -14,11 +13,6 @@ export default function Detail({setCurrentPage}) {
   const driver = useSelector((state) => state.detailsId);
   const search = useSelector((state) => state.driversByName);
 
-  function handlerHome(){
-    setCurrentPage(0)
-    dispatch(getDriverByName([]))
-  }
-  
 
   useEffect(() => {
     if (id !== driver.id) {

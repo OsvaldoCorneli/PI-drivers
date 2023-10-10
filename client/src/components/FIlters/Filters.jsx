@@ -56,6 +56,7 @@ export default function Filters(props) {
           name="APIDBfilter"
           onChange={handleFilterApiDb}
           disabled={searchQueryLocal !== "" || auxTeam === true}
+          style={{ margin: "auto", display: "block" }}
         >
           <option value="reset">...</option>
           <option value="api">Api</option>

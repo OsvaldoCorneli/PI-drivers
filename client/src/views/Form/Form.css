@@ -1,35 +1,38 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  background-image: url('https://img1.wallspic.com/crops/7/8/5/6/2/126587/126587-coche_deportivo-coche_de_lujo_personal-supercoche-auto_compacto-deportivo-3840x2160.jpg'); /* Reemplaza 'url_de_tu_imagen.jpg' con la URL de tu imagen */
+  background-size: cover; 
+}
 
-   .form-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
-  } 
-    
-  h2 {
-    color: #007bff;}
-  
-  form {
-    width: 300px;
-  }
-  
-  label {
-    margin-top: 10px; 
-  }
-  input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-  }
-  
-  button {
-    background-color: #007bff; 
-    color: white; 
-    margin-top: 10px;
-    cursor: pointer;
-    border: none;
-  }
-  
-  button:hover {
-    background-color: #0056b3; }
-  
+h2 {
+  color: #f7f7f7;
+}
+
+form {
+  width: 300px;
+}
+
+label {
+  margin-top: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  margin-top: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

@@ -5,12 +5,12 @@ async function createDriversHandler(req, res) {
   try {
     const { name, image, dob, nationality, teams, description } = req.body;
 
-    const teams1 = teams.join(", ").trim()
+    const teams1 = teams.join(",").trim()
 
     console.log("teams",teams1)
     
-    const datos = await createDriver(
-      name,
+    const datos = await createDriver( 
+      name, 
       image,
       dob,
       nationality,

@@ -8,6 +8,7 @@ import Detail from './views/Detail/Detail';
 import Nav from './components/Nav/Nav';
 import { useState } from 'react';
 import Form from './views/Form/Form';
+import "./App.css"
 
 function App() {
 
@@ -32,6 +33,8 @@ function App() {
         <Route path = {`/detail/:id`} element = {<Detail  currentPage={currentPage} setCurrentPage={setCurrentPage}/>}/>
         <Route path='/create' element={<Form/>}/>
       </Routes>
+
+      {location.pathname !== "/" ? <footer>Proyecto individual - Drivers - Soy HENRY 2023 - Cohorte 42a - Osvaldo Matias Corneli Nassif</footer> : null}
     </>
   );
 }

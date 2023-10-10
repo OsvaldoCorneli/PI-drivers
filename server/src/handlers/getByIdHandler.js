@@ -4,6 +4,7 @@ async function getByIdHandler(req, res){
 
 try {
     const {idDriver} = req.params
+    console.log(idDriver)
     const drivers = await getDriversById(idDriver);
     
     if(!drivers){return res.status(400).json({message: error.message})}

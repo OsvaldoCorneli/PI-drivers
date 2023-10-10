@@ -11,7 +11,7 @@ export default function validation(create){
         errors.forename = "El nombre tiene que tener mayuscula"
     }
     if(!regexNombre.test(create.name.surname)){
-        errors.surname = "El nombre tiene que tener mayuscula"
+        errors.surname = "El apellido tiene que tener mayuscula"
     }
     if(!regexURL.test(create.image.url)){
         errors.url = "Tiene que ser una URL"
@@ -19,7 +19,7 @@ export default function validation(create){
     if(!regexFecha.test(create.dob)){
         errors.dob = "El formato de fecha tiene que ser YYYY-MM-DD"
     }
-    if(!regexSeleccionado.test(create.teams)){
+    if(!regexTexto.test(create.teams)){
         errors.teams = "Tienes que selecionar al menos un equipo"
     }
     if(!regexTexto.test(create.nationality)){

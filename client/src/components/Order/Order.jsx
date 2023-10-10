@@ -27,6 +27,7 @@ export default function Order(props) {
           name="ordenar"
           onChange={handleOrder}
           disabled={searchQueryLocal !== ""}
+          style={{ margin: "auto", display: "block" }}
         >
           <option value="reset">...</option>
           <option value="ascendente">A-Z</option>
