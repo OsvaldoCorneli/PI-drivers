@@ -54,7 +54,6 @@ for (const dbDriver of dataDB) {
 
 async function funcionparaencontrarteams(driverId) {
   try {
-    // Realizar la consulta o lógica necesaria para encontrar los equipos
     const driver = await Driver.findByPk(driverId, {
       include: {
         model: Teams,

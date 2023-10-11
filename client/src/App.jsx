@@ -9,6 +9,8 @@ import Nav from './components/Nav/Nav';
 import { useState } from 'react';
 import Form from './views/Form/Form';
 import "./App.css"
+import About from './views/About/About';
+import NotFound from './views/NotFound/NotFound';
 
 function App() {
 
@@ -32,6 +34,8 @@ function App() {
         <Route path="/home" element={<Home setSearchQueryLocal={setSearchQueryLocal} searchQueryLocal={searchQueryLocal}  currentPage={currentPage} setCurrentPage={setCurrentPage} />} />
         <Route path = {`/detail/:id`} element = {<Detail  currentPage={currentPage} setCurrentPage={setCurrentPage}/>}/>
         <Route path='/create' element={<Form/>}/>
+        <Route path='/about'element={<About/>}/>
+         <Route path='*' element={<NotFound/>}/>
       </Routes>
 
       {location.pathname !== "/" ? <footer>Proyecto individual - Drivers - Soy HENRY 2023 - Cohorte 42a - Osvaldo Matias Corneli Nassif</footer> : null}

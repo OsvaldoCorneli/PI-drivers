@@ -15,7 +15,6 @@ async function getDriverByName(name) {
       return fullName.includes(varName);
     });
  
-    // Obtener datos de la base de datos  
     const dbData = await Driver.findAll({     
       where: {   
         name: {  
@@ -40,13 +39,12 @@ async function getDriverByName(name) {
       });
     }
 
-    // Combinar y limitar la cantidad de resultados
     const combinedData = [...driversfiltered, ...dbDrivers].slice(0, 15);
 
     return combinedData;
   } catch (error) {
     console.error("Error en la obtención de datos:", error);
-    throw error; // Relanzar el error para manejarlo en el nivel superior si es necesario
+    throw error;
   }
 }
 

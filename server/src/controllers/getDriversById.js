@@ -27,7 +27,7 @@ async function getDriversById(id){
                   name: driver.name,
                   image: driver.image, 
                   dob: driver.dob,
-                  nationality: driver.nationality,  // Agrega las propiedades necesarias
+                  nationality: driver.nationality,  
                   teams: teams,
                   description: driver.description,
                 };

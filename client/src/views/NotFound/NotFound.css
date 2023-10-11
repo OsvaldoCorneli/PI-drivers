@@ -1,0 +1,9 @@
+.background {
+    background-image: url('https://s0.smartresize.com/wallpaper/778/9/HD-wallpaper-404-error-404-error-glitch-glitch.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    height: 100%;
+    overflow: hidden;
+  }

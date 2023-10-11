@@ -6,9 +6,10 @@ import {
   ORDER,
   FILTERTEAM,
   FILTERAPIDB,
-  DETAIL
+  DETAIL,
+  CLEAR_DETAIL
 
-} from "../actions/actions-types";
+} from "../actions/actions-types"; 
 
 import axios from "axios";
 
@@ -106,3 +107,11 @@ export const idDetail = (id) => {
     }
   };
 };
+ 
+export const clearDetail = () => {
+return{
+  type: CLEAR_DETAIL,
+  payload: {}
+}
+
+}

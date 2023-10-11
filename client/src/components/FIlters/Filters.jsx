@@ -5,26 +5,19 @@ import { useDispatch } from "react-redux";
 import "./Filter.css"
 
 export default function Filters(props) {
-  const { teams, searchQueryLocal,setCurrentPage,driversRender } = props;
+  const { teams, searchQueryLocal,setCurrentPage} = props;
   const dispatch = useDispatch();
-  const [auxTeam , setAuxTeam] = useState(false)
-  const [auxApiDb , setAuxApiDb] = useState(false)
+  
   
 
   const handleFilter = (event) => {
-    if(event.target.value !== "reset"){
-      setAuxTeam(true)}else{
-        setAuxTeam(false)
-      }
+   
       dispatch(filterTeam(event.target.value))
       setCurrentPage(0) 
   };
 
   const handleFilterApiDb = (event) => {
-    if(event.target.value !== "reset"){
-      setAuxApiDb(true)}else{
-        setAuxApiDb(false)
-      }
+    
       dispatch(filterApiDb(event.target.value))
       setCurrentPage(0)
   };
@@ -37,7 +30,7 @@ export default function Filters(props) {
           name="filter"
           style={{ margin: "auto", display: "block" }}
           onChange={handleFilter}
-          disabled={searchQueryLocal !== "" || auxApiDb === true}
+          disabled={searchQueryLocal !== "" || location.pathname !== "/home"}
         >
           <option value="reset">...</option>
           {teams
@@ -55,7 +48,7 @@ export default function Filters(props) {
         <select
           name="APIDBfilter"
           onChange={handleFilterApiDb}
-          disabled={searchQueryLocal !== "" || auxTeam === true}
+            disabled={searchQueryLocal !== "" || location.pathname !== "/home"}
           style={{ margin: "auto", display: "block" }}
         >
           <option value="reset">...</option>

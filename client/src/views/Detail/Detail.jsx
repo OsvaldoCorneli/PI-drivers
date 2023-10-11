@@ -33,7 +33,7 @@ export default function Detail({setCurrentPage}) {
           <img src={driver.image?.url} alt={driver.image?.imageby} style={{ width: "450px", height: "500px" }} />
 
           <div className="details-content">
-          <Link to={"/home"}> <button>Back</button> </Link>
+           <button onClick={()=>window.history.back()}>Back</button>
             <h3>ID: {driver.id}</h3>
             <h3>Nombre: {driver.name.forename} {driver.name.surname}</h3>
             <h3>Nacionalidad: {driver.nationality}</h3>

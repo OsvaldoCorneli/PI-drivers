@@ -3,9 +3,21 @@ export default function validation(create){
     const regexNombre = /^[A-Z][a-z]*(?: [A-Z][a-z]*)*$/;
     const regexURL = /^(ftp|http|https):\/\/[^ "]+$/;
     const regexFecha = /^\d{4}-\d{2}-\d{2}$/;
-    const regexSeleccionado = /^[^\s]+$/;
     const regexTexto = /\S/;
     const errors = {};
+  
+    if(create.name.surname.length === 0){
+        errors.description = "este campo no puede estar vacio"
+    }
+    if(create.name.surname.length === 0){
+        errors.description = "este campo no puede estar vacio"
+    }
+    if(create.dob.length === 0){
+        errors.description = "este campo no puede estar vacio"
+    }
+    if(create.nationalitylength === 0){
+        errors.description = "este campo no puede estar vacio"
+    }
   
     if(!regexNombre.test(create.name.forename)){
         errors.forename = "El nombre tiene que tener mayuscula"
@@ -29,8 +41,18 @@ export default function validation(create){
         errors.description = "Este campo no puede estar vacio"
     }
     
+    if(create.description.length > 226){
+        errors.description = "No debe sobrepasar los 225 caracteres"
+    }
 
-
+    if(create.name.forename.length > 15){
+        errors.description = "No debe sobrepasar los 15 caracteres"
+    }
+    
+    if(create.name.surname.length > 15){
+        errors.description = "No debe sobrepasar los 15 caracteres"
+    }
+   
 
 return errors;
 

@@ -6,9 +6,6 @@ const getNameHamdler = require("../handlers/getByNameHandler");
 const teamsHandler = require("../handlers/teamHandler");
 
 
-// const getByNameHandler = require("../handlers/getByNameHandler");
-
-
 const router = Router();
 
 router.get("/drivers/name", getNameHamdler)

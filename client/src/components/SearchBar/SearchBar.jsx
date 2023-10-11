@@ -1,18 +1,14 @@
-// SearchBar.jsx
-
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { driverState, getDriverByName } from '../../redux/actions/actions';
-import './SearchBar.css'; // Importa el archivo CSS
+import './SearchBar.css'; 
 
 function SearchBar({ searchQueryLocal, setSearchQueryLocal, onSearch }) {
-  //<Estados>
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   const alldriver = useSelector((state) => state.allDrivers);
   const driver = useSelector((state) => state.drivers);
 
-  //<Estados/>
 
   useEffect(() => {
     if (driver.length > 15) {

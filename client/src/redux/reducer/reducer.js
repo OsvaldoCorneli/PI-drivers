@@ -7,6 +7,7 @@ import {
   FILTERTEAM,
   FILTERAPIDB,
   DETAIL,
+  CLEAR_DETAIL,
 } from "../actions/actions-types";
 
 const initialState = {
@@ -16,17 +17,20 @@ const initialState = {
   teams: [],
   copyDrivers: [],
   detailsId: [],
+  copiaFiltro: [],
+  filtrar: [],
 };
 
 const rootReducer = (state = initialState, action) => {
   const { type, payload } = action;
-  const copiaDriver = [...state.allDrivers];
+  const copiaAllDriver = [...state.allDrivers];
+
   switch (type) {
     case GET_DRIVERS:
       return { ...state, allDrivers: payload };
 
     case BUSCAR_DRIVERS:
-      payload.length === 0 ? [] : payload
+      payload.length === 0 ? [] : payload;
       return {
         ...state,
         driversByName: payload,
@@ -37,6 +41,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         drivers: response,
+        copiaFiltro: response,
       };
 
     case LOADTEAMS:
@@ -46,11 +51,21 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case ORDER:
+      const diverIdnumber = state.drivers.filter(
+        (driver) => typeof driver.id === "number"
+      );
+      const driversidUUID = state.drivers.filter(
+        (driver) => typeof driver.id === "string" && driver.id.includes("-")
+      );
+      const driverSort = [
+        ...diverIdnumber.sort((a, b) => a.id - b.id),
+        ...driversidUUID.sort((a, b) => a.id.localeCompare(b.id)),
+      ];
       return {
         ...state,
         drivers:
           payload === "reset"
-            ? [...state.drivers].sort((a, b) => a.id - b.id)
+            ? driverSort
             : payload === "ascendente"
             ? [...state.drivers].sort((a, b) =>
                 a.name.forename.localeCompare(b.name.forename)
@@ -67,14 +82,13 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTERTEAM:
-      return {
-        ...state,
-        copyDrivers: [...state.drivers],
-        drivers:
+      let response1;
+      if (state.copyDrivers.length === 0) {
+        response1 =
           payload === "reset"
             ? [...state.allDrivers]
             : [
-                ...copiaDriver.filter((driver) => {
+                ...copiaAllDriver.filter((driver) => {
                   return (
                     driver.teams &&
                     driver.teams
@@ -83,20 +97,53 @@ const rootReducer = (state = initialState, action) => {
                       .includes(payload)
                   );
                 }),
-              ],
+              ];
+      } else {
+        response1 =
+          payload === "reset"
+            ? [...state.copiaFiltro]
+            : [
+                ...state.filtrar.filter((driver) => {
+                  return (
+                    driver.teams &&
+                    driver.teams
+                      .split(",")
+                      .map((team) => team.trim())
+                      .includes(payload)
+                  );
+                }),
+              ];
+      }
+
+      return {
+        ...state,
+        drivers: response1,
       };
 
     case FILTERAPIDB:
+      const response2 =
+        payload === "reset"
+          ? [...state.allDrivers]
+          : payload === "api"
+          ? [
+              ...copiaAllDriver.filter(
+                (driver) => typeof driver.id === "number"
+              ),
+            ]
+          : payload === "db"
+          ? [
+              ...copiaAllDriver.filter(
+                (driver) => typeof driver.id === "string"
+              ),
+            ]
+          : "";
+          
       return {
         ...state,
-        drivers:
-          payload === "reset"
-            ? [...state.allDrivers]
-            : payload === "api"
-            ? [...copiaDriver.filter((driver) => typeof driver.id === "number")]
-            : payload === "db"
-            ? [...copiaDriver.filter((driver) => typeof driver.id === "string")]
-            : "",
+        drivers: response2,
+        copyDrivers: payload === "reset" ? [] : [...state.drivers],
+        copiaFiltro: response2,
+        filtrar: response2,
       };
 
     case DETAIL:
@@ -104,6 +151,13 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         detailsId: payload,
       };
+
+
+    case CLEAR_DETAIL:
+      return{
+        ...state,
+        detailsId: payload
+      }
 
     default:
       return {

@@ -6,3 +6,4 @@ export const ORDER = "ORDER";
 export const FILTERTEAM = "FILTERTEAM";
 export const FILTERAPIDB = "FILTERAPIDB";
 export const DETAIL = "DETAIL"
+export const CLEAR_DETAIL = "CLEAR_DETAIL"

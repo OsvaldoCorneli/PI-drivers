@@ -1,16 +1,16 @@
 // home.jsx
 
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getDrivers,
   driverState,
   loadTeams,
+  clearDetail,
 } from "../../redux/actions/actions";
 import Card from "../../components/Card/Card";
 import Pagination from "../../helpers/paginado";
-import Filters from "../../components/FIlters/Filters";
 import Order from "../../components/Order/Order";
 import "./home.css";
 import { Link } from "react-router-dom";
@@ -18,24 +18,27 @@ import { Link } from "react-router-dom";
 function Home({
   currentPage,
   setCurrentPage,
-  setSearchQueryLocal,
   searchQueryLocal,
 }) {
+
   //<ESTADOS>
   const dispatch = useDispatch();
+  const detail = useSelector((state)=>state.detailsId)
   const allDrivers = useSelector((state) => state?.allDrivers);
   const driversByName = useSelector((state) => state.driversByName);
   const driversRender = useSelector((state) => state.drivers);
   const teams = useSelector((state) => state?.teams);
 
-  //</ESTADOS>
 
+  //</ESTADOS>
+  
   useEffect(() => {
     if (teams.length > 203 || teams.length === 0) {
       dispatch(loadTeams());
     }
-
+   if(Object.keys(detail).length === 0){
     dispatch(getDrivers());
+  }
   }, []);
 
   // <Paginado>
@@ -43,20 +46,19 @@ function Home({
 
   const startIndex = currentPage * driversPerPage;
   const endIndex = startIndex + driversPerPage;
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     if (driversByName.length !== 0) {
       dispatch(driverState(driversByName));
       setCurrentPage(0);
-    } else {
-      if (driversRender) {
-        setLoading(false);
-        dispatch(driverState(allDrivers));
-        // setCurrentPage(0);
-      } else {
-        setLoading(true);
+      if(detail.length !== 0 && searchQueryLocal.length !== 0){
+        dispatch(clearDetail())
       }
+    } else {
+      if (driversRender && detail.length === 0) {
+        
+        dispatch(driverState(allDrivers));
+      }
+      
     }
   }, [allDrivers, driversByName]);
 
@@ -75,9 +77,14 @@ function Home({
       window.scrollTo(0, 0);
     }
   };
+const empty = {
+  id: 0,
+  name:{forename: "NO HAY", surname: "COINCIDENCIAS"},
+  image:{url: "https://img.freepik.com/vector-premium/icono-perfil-humano-ilustracion-vectorial-genero_276184-158.jpg?w=740"}
+} 
 
   // </Paginado>
-
+ 
   return (
 <div className="body-background">
   <div className="selects-contener">
@@ -86,14 +93,16 @@ function Home({
         searchQueryLocal={searchQueryLocal}
       />
 
-       <Filters teams={teams} 
-      searchQueryLocal={searchQueryLocal} 
-      setCurrentPage={setCurrentPage}
-      driversRender={driversRender}/>
-
+      
       </div>
       {driversRender === "vacio" ? (
-        <h2>NO HAY COINCIDENCIAS</h2>
+        <div className="ordenar">
+        <Card 
+        keyy={empty.id}
+        name={empty.name}
+        image={empty.image}
+        />
+        </div>
       ) : driversRender.length !== 0 ? 
       <div className="pagina-contener">
         <Pagination 
