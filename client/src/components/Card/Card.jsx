@@ -2,7 +2,7 @@ import React from "react";
 import "./card.css";
 
 export default function Card(props){
-    const {id , name , image , teams } = props
+    const {id , name , image , teams , dob} = props
 
     return (
         <div key={id} className="container" >

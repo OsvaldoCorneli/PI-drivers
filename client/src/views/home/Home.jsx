@@ -10,7 +10,7 @@ import {
   clearDetail,
 } from "../../redux/actions/actions";
 import Card from "../../components/Card/Card";
-import Pagination from "../../helpers/paginado";
+import Pagination from "../../helpers/Paginado";
 import Order from "../../components/Order/Order";
 import "./home.css";
 import { Link } from "react-router-dom";
@@ -34,10 +34,12 @@ function Home({
   
   useEffect(() => {
     if (teams.length > 203 || teams.length === 0) {
-      dispatch(loadTeams());
+    dispatch(loadTeams());
+    window.scrollTo(0, 0)
     }
    if(Object.keys(detail).length === 0){
-    dispatch(getDrivers());
+     dispatch(getDrivers());
+     window.scrollTo(0, 0)
   }
   }, []);
 
@@ -110,6 +112,7 @@ const empty = {
           totalPages={Math.ceil(driversRender.length / driversPerPage)}
           onPrev={prevHandler}
           onNext={nextHandler}
+          setCurrentPage={setCurrentPage}
         />
       </div> : null}
 
@@ -137,6 +140,7 @@ const empty = {
           totalPages={Math.ceil(driversRender.length / driversPerPage)}
           onPrev={prevHandler}
           onNext={nextHandler}
+          setCurrentPage={setCurrentPage}
         />
       </div> : null }
     </div>

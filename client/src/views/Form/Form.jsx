@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
+import {useNavigate} from "react-router-dom"
 import "./Form.css";
 
 import { useSelector } from "react-redux";
 import validation from "../../helpers/validation";
 import { postDriver } from "../../controllers/controllers";
 
+
 export default function Form() {
   const teamsDb = useSelector((state) => state.teams);
-
+  const navigate = useNavigate()
   const [error, setError] = useState({});
+
+  useEffect(()=>{
+    setError(validation(updatedCreate));
+  },[])
 
   const initialCreateState = {
     name: { forename: "", surname: "" },
@@ -43,7 +49,7 @@ export default function Form() {
         event.target.selectedOptions,
         (option) => option.value
       );
-      console.log(selectedTeams);
+   
       updatedCreate = { ...updatedCreate, teams: selectedTeams };
     } else {
       updatedCreate = {
@@ -58,12 +64,10 @@ export default function Form() {
   };
 
   const handleSubmit = async (event) => {
-
     event.preventDefault();
-    postDriver(create);
-    try{
-    setCreate({ ...initialCreateState });
-    }catch(error){console.log(error)}
+    await postDriver(create);
+    navigate('/home')
+    
     
   };
 

@@ -1,13 +1,13 @@
 const createDriver = require("../controllers/createDriver");
 
 async function createDriversHandler(req, res) {
-  console.log("body",req.body)
+ 
   try {
     const { name, image, dob, nationality, teams, description } = req.body;
 
     const teams1 = teams.join(",").trim()
 
-    console.log("teams",teams1)
+
     
     const datos = await createDriver( 
       name, 
@@ -30,7 +30,7 @@ async function createDriversHandler(req, res) {
       };
       res.status(200).json(response);
     } else {
-      res.status(404).json({ message: datos.message });
+      res.status(404).json({message: datos.errors});
     }
     
   } catch (error) {

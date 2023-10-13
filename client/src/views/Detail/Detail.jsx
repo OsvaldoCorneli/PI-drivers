@@ -35,15 +35,15 @@ export default function Detail({setCurrentPage}) {
           <div className="details-content">
            <button onClick={()=>window.history.back()}>Back</button>
             <h3>ID: {driver.id}</h3>
-            <h3>Nombre: {driver.name.forename} {driver.name.surname}</h3>
-            <h3>Nacionalidad: {driver.nationality}</h3>
-            <h3>Descripción: {driver.description}</h3>
-            <h3>Fecha de Nacimiento: {driver.dob}</h3>
-            <h3>Equipos: {driver.teams}</h3>
+            <h3>Name: {driver.name.forename} {driver.name.surname}</h3>
+            <h3>Nationality: {driver.nationality}</h3>
+            <h3>Description: {driver.description}</h3>
+            <h3>Date of birth: {driver.dob}</h3>
+            <h3>teams: {driver.teams}</h3>
           </div>
         </>
       ) : (
-        <p>Cargando...</p>
+        <p>NOT FOUND...</p>
       )}
     </div>
   );

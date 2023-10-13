@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { driverState, getDriverByName } from '../../redux/actions/actions';
+import {useLocation} from "react-router-dom";
 import './SearchBar.css'; 
-
 function SearchBar({ searchQueryLocal, setSearchQueryLocal, onSearch }) {
-
+  const location = useLocation()
   const dispatch = useDispatch();
   const alldriver = useSelector((state) => state.allDrivers);
   const driver = useSelector((state) => state.drivers);
@@ -33,6 +33,7 @@ function SearchBar({ searchQueryLocal, setSearchQueryLocal, onSearch }) {
         placeholder="Search Drivers"
         value={searchQueryLocal}
         onChange={onSearch}
+        disabled={location.pathname !== "/home"}
       />
     </div>
   );

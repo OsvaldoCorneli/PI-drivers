@@ -20,10 +20,10 @@ export default function validation(create){
     }
   
     if(!regexNombre.test(create.name.forename)){
-        errors.forename = "El nombre tiene que tener mayuscula"
+        errors.forename = "Los nombres tienen que tener mayuscula"
     }
     if(!regexNombre.test(create.name.surname)){
-        errors.surname = "El apellido tiene que tener mayuscula"
+        errors.surname = "Los apellidos tienen que tener mayuscula"
     }
     if(!regexURL.test(create.image.url)){
         errors.url = "Tiene que ser una URL"
@@ -45,12 +45,12 @@ export default function validation(create){
         errors.description = "No debe sobrepasar los 225 caracteres"
     }
 
-    if(create.name.forename.length > 15){
-        errors.description = "No debe sobrepasar los 15 caracteres"
+    if(create.name.forename.length > 20){
+        errors.forename = "No debe sobrepasar los 15 caracteres"
     }
     
-    if(create.name.surname.length > 15){
-        errors.description = "No debe sobrepasar los 15 caracteres"
+    if(create.name.surname.length > 20){
+        errors.surname = "No debe sobrepasar los 15 caracteres"
     }
    
 
